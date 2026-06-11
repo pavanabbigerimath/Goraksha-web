@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .hero-section {
+        border-radius: 40px;
+        margin: 20px;
+        overflow: hidden;
+        position: relative;
+        height: 450px;
+    }
+    .carousel-item img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+    }
+    .hero-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 1;
+    }
+    .carousel-caption { z-index: 2; bottom: 20%; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); }
+    .emergency-btn {
+        background-color: #d32f2f; color: white; padding: 15px 40px;
+        border-radius: 12px; font-weight: bold; border: none;
+        box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4); margin-top: 20px;
+    }
+    .feature-card {
+        background: white; border-radius: 25px; padding: 30px;
+        text-align: center; transition: transform 0.3s; border: none;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05); height: 100%;
+    }
+    .feature-card:hover { transform: translateY(-10px); }
+    .card-green { background-color: #e8f5e9; }
+    .card-blue { background-color: #e3f2fd; }
+    .card-orange { background-color: #fff3e0; }
+    .card-purple { background-color: #f3e5f5; }
+    .stat-number { font-size: 1.5rem; font-weight: bold; color: #1B6B2F; }
+    .alert-box {
+        background: #fff; border-left: 5px solid #f57c00;
+        border-radius: 15px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+</style>
+
+<!-- Image Slider (Carousel) -->
+<div id="gorakshaCarousel" class="carousel slide hero-section" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        #1st Slide
+        <div class="carousel-item active">
+            <img src="{% static 'images/bg2.png' %}" class="d-block w-100" alt="Slide 1">
+            <div class="hero-overlay"></div>
+            <div class="carousel-caption">
+                <div class="mb-2 fs-3">🐄 🐂 🐐 🐑</div>
+                <h1 class="display-4 fw-bold">GORAKSHA</h1>
+                <h3 class="fw-normal">ಪಶು ಸಂಜೀವಿನಿ</h3>
+                <p class="lead">Your trusted companion for animal health</p>
+                <button class="emergency-btn">🚨 EMERGENCY — ತುರ್ತು ಸಹಾಯ</button>
+            </div>
+        </div>
+        #2nd Slide
+        <div class="carousel-item">
+            <img src="{% static 'images/bg8.png' %}" class="d-block w-100" alt="Slide 2">
+            <div class="hero-overlay"></div>
+            <div class="carousel-caption">
+                <h1 class="display-4 fw-bold">24/7 SUPPORT</h1>
+                <h3>ತಜ್ಞ ವೈದ್ಯರ ನೆರವು</h3>
+                <p>ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಕರೆ ಮಾಡಿ</p>
+            </div>
+        </div>
+        #3rd Slide
+        <div class="carousel-item">
+            <img src="{% static 'images/bg7.png' %}" class="d-block w-100" alt="Slide 2">
+            <div class="hero-overlay"></div>
+            <div class="carousel-caption">
+                <h1 class="display-4 fw-bold">Govt Schemes</h1>
+                <h3>Benifits and Subsidies</h3>
+                <p>ಸರಕಾರಿ ಯೋಜನೆಗಳು</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#gorakshaCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#gorakshaCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<!-- Feature Section (4 Cards) -->
+<div class="container mt-5">
+    <div class="row g-4 justify-content-center">
+        <div class="col-6 col-md-3">
+            <div class="feature-card card-green">
+                <div class="fs-1 mb-2">👨‍⚕️</div>
+                <h6 class="fw-bold">Find Doctor</h6>
+                <small class="text-muted">Vet near you - ನಿಮ್ಮ ಸಮೀಪದ ವೈದ್ಯರು</small>
+                <a href="{% url 'doctor_list' %}" class="stretched-link"></a>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-card card-blue">
+                <div class="fs-1 mb-2">🩺</div>
+                <h6 class="fw-bold">First Aid</h6>
+                <small class="text-muted">Quick care steps - ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ</small>
+                <a href="{% url 'first_aid' %}" class="stretched-link"></a>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-card card-orange">
+                <div class="fs-1 mb-2">📋</div>
+                <h6 class="fw-bold">Govt Schemes</h6>
+                <small class="text-muted">Benefits & subsidies</small>
+                <a href="{% url 'schemes' %}" class="stretched-link"></a>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-card card-purple">
+                <div class="fs-1 mb-2">👤</div>
+                <h6 class="fw-bold">My Profile</h6>
+                <small class="text-muted">Records & history</small>
+                <a href="{% url 'profile' %}" class="stretched-link"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="container mt-5">
+    <div class="row text-center border-top pt-4">
+        <div class="col-3 stat-box"><div class="stat-number">240+</div><small>Doctors</small></div>
+        <div class="col-3 stat-box"><div class="stat-number">18</div><small>Districts</small></div>
+        <div class="col-3 stat-box"><div class="stat-number">24/7</div><small>Support</small></div>
+        <div class="col-3 stat-box"><div class="stat-number">12K+</div><small>Helped</small></div>
+    </div>
+</div>
+
+<!-- Alert Box -->
+<div class="container my-5">
+    <div class="alert-box">
+        <small class="text-warning fw-bold">⚠️ Today's Animal Health Alert</small>
+        <p class="mb-0 small">FMD (Foot & Mouth Disease) advisory in Gadag district. Keep animals separated.</p>
+    </div>
+</div>
+{% endblock %}

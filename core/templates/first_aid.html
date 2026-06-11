@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    :root {
+        --primary-green: #2d6a4f;
+        --light-green:#f0fdf4;
+    }
+
+    .page-title { 
+        color: #327b5b; 
+        font-weight: 800; 
+    }
+
+    .nav-pills .nav-link {
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 15px;
+        padding: 20px;
+        color: #4b5563 !important; 
+        transition: 0.3s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: var(--light-green) !important;
+        border-color: var(--primary-green) !important;
+        color: #065f46 !important; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+    }
+
+    .nav-link i { font-size: 2rem; margin-bottom: 10px; }
+
+    .tab-content {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        padding: 30px;
+        margin-top: 30px;
+        border-left: 6px solid var(--primary-green);
+    }
+
+    .step-item { display: flex; align-items: flex-start; margin-bottom: 15px; }
+    
+    .step-number {
+        background: var(--primary-green);
+        color: white;
+        min-width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .step-text { 
+        color: #374151; 
+        font-size: 1.1rem;
+        line-height: 1.7;
+        font-weight: 600;
+    }
+
+    .text-muted {
+        color: #6b7280 !important; /* ಸಬ್-ಟೈಟಲ್ ಕಲರ್ */
+    }
+    /*new green box header style */
+    .first-aid-header {
+        background: linear-gradient(135deg, #2d6a4f, #40916c);
+        padding: 60px 0;
+        color: white;
+        border-radius: 0 0 50px 50px;
+        margin-bottom: 40px;
+        text-align: center;
+        margin-left: -12px; 
+        margin-right: -12px;
+    }
+
+    .first-aid-header h1 {
+        font-weight: 800;
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    .first-aid-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+</style>
+
+<div class="first-aid-header">
+    <div class="container">
+        <h1>Animal First Aid</h1>
+        <p>ಸ್ಥಿತಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ (Select a condition):</p>
+    </div>
+</div>
+
+    <ul class="nav nav-pills row g-3 text-center" id="pills-tab" role="tablist">
+        {% for aid in aids %}
+        <li class="nav-item col-6 col-md-3" role="presentation">
+            <button class="nav-link w-100 {% if forloop.first %}active{% endif %}" 
+                    id="pill-{{ aid.id }}-tab" 
+                    data-bs-toggle="pill" 
+                    data-bs-target="#pill-{{ aid.id }}" 
+                    type="button" role="tab">
+                <i class="bi {{ aid.icon_class }}"></i>
+                <span class="fw-bold small">{{ aid.disease_name }}</span>
+            </button>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+        {% for aid in aids %}
+        <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" 
+             id="pill-{{ aid.id }}" role="tabpanel">
+            
+            <h4 class="fw-bold text-success mb-4 border-bottom pb-2">
+                <i class="bi {{ aid.icon_class }} me-2"></i>{{ aid.disease_name }} - First Aid
+            </h4>
+
+            {% with details=aid.treatment_details.splitlines %}
+                {% for line in details %}
+                    {% if line.strip %}
+                    <div class="step-item">
+                        <div class="step-number">{{ forloop.counter }}</div>
+                        <div class="step-text">{{ line|cut:"1."|cut:"2."|cut:"3."|cut:"4."|cut:"5." }}</div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+            <div class="mt-4 p-3" style="background-color: #fff9db; border-left: 6px solid #fab005; border-radius: 10px; display: flex; align-items: flex-start;">
+    <i class="bi bi-exclamation-triangle-fill" style="color: #fab005; font-size: 1.5rem; margin-right: 15px;"></i>
+    <div>
+        <h6 class="fw-bold mb-1" style="color: #856404;">ಗಮನಿಸಿ (Disclaimer):</h6>
+        <p class="mb-0" style="font-size: 0.95rem; color: #856404; line-height: 1.4;">
+            ಇಲ್ಲಿ ನೀಡಲಾದ ಮಾಹಿತಿಯು ಕೇವಲ ಪ್ರಾಥಮಿಕ ಚಿಕಿತ್ಸೆಗೆ ಮಾತ್ರ ಸೀಮಿತವಾಗಿದೆ. ಯಾವುದೇ ಔಷಧ ಅಥವಾ ಹೆಚ್ಚಿನ ಚಿಕಿತ್ಸೆ ನೀಡುವ ಮೊದಲು ಅಧಿಕೃತ ಪಶುವೈದ್ಯರ ಸಲಹೆ ಪಡೆಯುವುದು ಕಡ್ಡಾಯ.
+        </p>
+    </div>
+</div>
+
+            {% if aid.video_url %}
+            <div class="text-center mt-4 pt-3 border-top">
+                <a href="{{ aid.video_url }}" target="_blank" class="btn btn-dark rounded-pill px-4">
+                    <i class="bi bi-play-circle-fill me-2 text-danger"></i> ವೀಡಿಯೊ ನೋಡಿ
+                </a>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

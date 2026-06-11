@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ಗೊರಕ್ಷಾ - ಪಶು ಸಂಜೀವಿನಿ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8fbf8; }
+        .navbar { background-color: #2e7d32 !important; }
+        .footer { color: white; padding: 20px 0; margin-top: 50px; }
+        :root { --primary-green: #1B6B2F; }
+    
+    /* Navbar ವಿನ್ಯಾಸ */
+    .navbar { 
+        background: white !important; 
+        padding: 8px 0; 
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    }
+    
+    .navbar-logo {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--primary-green);
+    }
+
+    .brand-text {
+        line-height: 1.2;
+        margin-left: 10px;
+    }
+
+    .nav-link { 
+        color: #333 !important; 
+        font-weight: 600 !important; 
+        margin: 0 10px;
+        transition: 0.3s;
+    }
+
+    .nav-link:hover { color: var(--primary-green) !important; }
+
+    /* ವೈದ್ಯರ ನೋಂದಣಿ ಬಟನ್ */
+    .btn-register {
+        border: 2px solid var(--primary-green);
+        color: var(--primary-green) !important;
+        border-radius: 20px;
+        padding: 5px 20px !important;
+        font-weight: bold;
+    }
+
+    .btn-register:hover {
+        background: var(--primary-green);
+        color: white !important;
+    }
+
+    /* Hamburger ಬಟನ್ ಡಿಸೈನ್ */
+.custom-toggler {
+    padding: 2px 5px; /* ಬಟನ್ ಗಾತ್ರ ಚಿಕ್ಕದಾಗಿಸಲು */
+    font-size: 0.8rem; /* ಐಕಾನ್ ಗಾತ್ರ */
+    border: 1px solid #ddd; /* ಸಣ್ಣ ಬಾರ್ಡರ್ */
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* ಮೊಬೈಲ್‌ನಲ್ಲಿ ಬಟನ್ ಬಲಕ್ಕೆ ತಳ್ಳಲು */
+@media (max-width: 991px) {
+    .navbar-brand {
+        margin-right: auto; /* ಲೋಗೋವನ್ನು ಎಡಕ್ಕೆ ಒತ್ತುತ್ತದೆ */
+    }
+    .custom-toggler {
+        margin-left: 10px; /* ಬಟನ್ ಅನ್ನು ತುದಿಗೆ ತಳ್ಳುತ್ತದೆ */
+    }
+}
+    </style>
+</head>
+<body>
+
+   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+            <img src="{% static 'images/bg6.png' %}" alt="Logo" class="navbar-logo">
+            <div class="brand-text">
+                <div class="fw-bold" style="color: var(--primary-green); font-size: 1.2rem;">GORAKSHA</div>
+                <div style="font-size: 0.75rem; color: #666; letter-spacing: 1px;">ಪಶು ಸಂಜೀವಿನಿ</div>
+            </div>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'doctor_list' %}">Doctors</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'first_aid' %}">First Aid</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'schemes' %}">Schemes</a></li>
+                <li class="nav-item"><a class="nav-link text-danger fw-bold" href="{% url 'report_accident' %}">🚨Report Accident</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold" href="{% url 'about' %}" style="color: #2d6a4f;">About Us</a></li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link btn-register ms-lg-3" href="{% url 'register_doctor' %}">ವೈದ್ಯರ ನೋಂದಣಿ</a>
+                    {% else %}
+                        <a class="nav-link btn-register ms-lg-3" href="{% url 'login' %}">ವೈದ್ಯರ ನೋಂದಣಿ</a>
+                    {% endif %}
+                </li>     
+                {% if user.is_authenticated and user.is_superuser %}
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger text-white px-3 ms-2" href="{% url 'admin_dashboard' %}">
+                        <i class="bi bi-speedometer2"></i> Admin Panel
+                    </a>
+                </li>
+                {% endif %}       
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-3">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert" style="border-radius: 12px; border: none; background-color: #d4edda; color: #155724; font-weight: 500;">
+                    <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer text-center bg-success bg-gradient text-white">
+        <div class="container">
+            <p>© 2026 ಗೊರಕ್ಷಾ - ಪಶು ಸಂಜೀವಿನಿ. ಸರ್ವ ಹಕ್ಕುಗಳೂ ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // 4 ಸೆಕೆಂಡ್ ನಂತರ ಮೆಸೇಜ್ ಆಟೋಮ್ಯಾಟಿಕ್ ಆಗಿ ಕ್ಲೋಸ್ ಆಗುತ್ತದೆ
+    setTimeout(function() {
+        var alertElement = document.querySelector('.alert');
+        if (alertElement) {
+            var alert = new bootstrap.Alert(alertElement);
+            alert.close();
+        }
+    }, 4000);
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    /* Header */
+    .schemes-header {
+        background: linear-gradient(135deg, #2d6a4f, #40916c);
+        padding: 60px 0;
+        color: white;
+        border-radius: 0 0 50px 50px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .nav-pills .nav-link {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        padding: 20px;
+        color: #444 !important;
+        transition: 0.3s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: #f0fdf4 !important;
+        border-color: #2d6a4f !important;
+        color: #1e9563 !important;
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    .scheme-details-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin-top: 30px;
+        border-left: 8px solid #198957;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .benefit-item { margin-bottom: 10px; display: flex; align-items: start; }
+    .benefit-icon { color: #28845b; margin-right: 10px; font-weight: bold; }
+</style>
+
+<div class="schemes-header">
+    <div class="container">
+        <h1>Government Schemes</h1>
+        <p>ರೈತರಿಗಾಗಿ ಲಭ್ಯವಿರುವ ವಿಶೇಷ ಪಶುಸಂಗೋಪನೆ ಯೋಜನೆಗಳು</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <ul class="nav nav-pills row g-3 text-center" id="pills-tab" role="tablist">
+        {% for scheme in schemes %}
+        <li class="nav-item col-md-3" role="presentation">
+            <button class="nav-link w-100 {% if forloop.first %}active{% endif %}" 
+                    id="pills-{{ scheme.id }}-tab" 
+                    data-bs-toggle="pill" 
+                    data-bs-target="#pills-{{ scheme.id }}" 
+                    type="button" role="tab">
+                <i class="bi bi-briefcase-fill fs-2 mb-2"></i>
+                <span class="fw-bold">{{ scheme.title|truncatechars:25 }}</span>
+            </button>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+        {% for scheme in schemes %}
+        <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" 
+             id="pills-{{ scheme.id }}" role="tabpanel">
+            
+            <div class="scheme-details-card">
+                <span class="badge bg-success mb-3">ಅಧಿಕೃತ ಯೋಜನೆ</span>
+                <h2 class="fw-bold mb-3" style="color: #1b4332;">{{ scheme.title }}</h2>
+                
+                <h5 class="fw-bold text-success">ಯೋಜನೆಯ ವಿವರ:</h5>
+                <p class="text-muted mb-4">{{ scheme.description }}</p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="fw-bold text-success">ಪ್ರಯೋಜನಗಳು:</h5>
+                        <div class="mb-4">{{ scheme.benefits|linebreaks }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="fw-bold text-success">ಅರ್ಹತೆಗಳು:</h5>
+                        <div class="mb-4">{{ scheme.eligibility|linebreaks }}</div>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{{ scheme.apply_link }}" target="_blank" class="btn btn-success px-4 py-2 rounded-pill fw-bold">
+                        ಇಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ <i class="bi bi-box    -arrow-up-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

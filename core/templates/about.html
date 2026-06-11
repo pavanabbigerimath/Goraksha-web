@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+.about-header {
+    background: linear-gradient(135deg, #2d6a4f, #40916c) !important;
+    padding: 60px 0 !important;
+    color: white !important;
+    border-radius: 0 0 50px 50px !important;
+    margin-bottom: 40px !important;
+    text-align: center !important;
+    /* ಬದಿಗಳಲ್ಲಿ ಬಿಳಿ ಜಾಗ ಬರದಂತೆ ಸರಿಪಡಿಸಲು ಇವು ಮುಖ್ಯ */
+    margin-left: -12px !important;
+    margin-right: -12px !important;
+    border: none !important;
+}
+
+.about-header h1 {
+    font-weight: 800 !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 10px !important;
+}
+
+.about-header p {
+    font-size: 1.1rem !important;
+    opacity: 0.9 !important;
+}
+    .info-card {
+        background: white; border-radius: 25px; padding: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #eef2f0;
+    }
+    .service-box {
+        background: #f0fdf4; border-radius: 15px; padding: 20px;
+        margin-bottom: 20px; border-left: 5px solid #2d6a4f;
+    }
+    .dev-info {
+        background: #f8fafc; color: #1b4332; border-radius: 20px;
+        padding: 30px; margin-top: 30px; border: 2px dashed #cbd5e1;
+    }
+    .service-icon {
+        font-size: 1.5rem; color: #2d6a4f; margin-right: 15px;
+    }
+</style>
+
+<div class="about-header">
+    <div class="container">
+        <h1 class="fw-bold display-4">ಗೋರಕ್ಷಾ (Goraksha)</h1>
+        <p class="lead opacity-75">ರೈತರ ಹಿತರಕ್ಷಣೆ ಮತ್ತು ಪಶುಗಳ ಸುಕ್ಷೇಮವೇ ನಮ್ಮ ಗುರಿ</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="info-card">
+                <h2 class="fw-bold text-success mb-4">ನಮ್ಮ ಬಗ್ಗೆ (About Us)</h2>
+                <p class="text-secondary fs-5 mb-5">
+                    "ಗೋರಕ್ಷಾ" ಒಂದು ಆಧುನಿಕ ಡಿಜಿಟಲ್ ವೇದಿಕೆಯಾಗಿದ್ದು, ಹಳ್ಳಿಯ ರೈತರು ಮತ್ತು ಪಶುವೈದ್ಯರ ನಡುವಿನ ಅಂತರವನ್ನು ಕಡಿಮೆ ಮಾಡುವ ಉದ್ದೇಶ ಹೊಂದಿದೆ. ತಂತ್ರಜ್ಞಾನದ ಮೂಲಕ ಪಶುಸಂಗೋಪನೆಯನ್ನು ಸುಲಭಗೊಳಿಸುವುದು ನಮ್ಮ ಆಶಯ.
+                </p>
+
+                <h4 class="fw-bold mb-4">ನಾವು ನೀಡುವ ಪ್ರಮುಖ ಸೇವೆಗಳು:</h4>
+                
+                <div class="service-box">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-people-fill service-icon"></i>
+                        <h5 class="fw-bold mb-0">ಪಶುವೈದ್ಯರ ಸಂಪರ್ಕ</h5>
+                    </div>
+                    <p class="mb-0 text-muted">ರೈತರು ತಮ್ಮ ಹತ್ತಿರದ ತಾಲೂಕು ಅಥವಾ ಗ್ರಾಮದ ಪಶುವೈದ್ಯರನ್ನು ಹುಡುಕಿ ತಕ್ಷಣವೇ ಕರೆ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮೂಲಕ ಸಂಪರ್ಕಿಸಬಹುದು.</p>
+                </div>
+
+                <div class="service-box">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-bank2 service-icon"></i>
+                        <h5 class="fw-bold mb-0">ಸರ್ಕಾರಿ ಯೋಜನೆಗಳ ಮಾಹಿತಿ</h5>
+                    </div>
+                    <p class="mb-0 text-muted">ಪಶುಸಂಗೋಪನೆ ಇಲಾಖೆಯ ಸಬ್ಸಿಡಿಗಳು, ವಿಮೆ ಮತ್ತು ಹೊಸ ಯೋಜನೆಗಳ ಬಗ್ಗೆ ನಿಖರವಾದ ಮಾಹಿತಿ ಒದಗಿಸುವುದು.</p>
+                </div>
+
+                <div class="service-box">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-heart-pulse-fill service-icon"></i>
+                        <h5 class="fw-bold mb-0">ತುರ್ತು ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ</h5>
+                    </div>
+                    <p class="mb-0 text-muted">ವೈದ್ಯರು ಬರುವವರೆಗೆ ರೈತರು ಮಾಡಬೇಕಾದ ಪ್ರಾಥಮಿಕ ಚಿಕಿತ್ಸೆ ಮತ್ತು ಸಾಮಾನ್ಯ ಕಾಯಿಲೆಗಳ ಚಿಕಿತ್ಸಾ ಕೈಪಿಡಿ.</p>
+                </div>
+
+                <div class="dev-info text-center">
+                    <h4 class="fw-bold mb-3">ಡೆವಲಪರ್ ಮಾಹಿತಿ (Developer Info)</h4>
+                    <p class="text-muted">ಈ ವಿಭಾಗವನ್ನು ಶೀಘ್ರದಲ್ಲೇ ಅಪ್‌ಡೇಟ್ ಮಾಡಲಾಗುವುದು.</p>
+                    
+                    <div class="mt-4">
+                        <a href="mailto:nimmaemail@gmail.com" class="btn btn-success rounded-pill px-5 fw-bold">
+                            <i class="bi bi-envelope-fill me-2"></i>ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

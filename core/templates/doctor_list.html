@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body { background-color: #f8faf9; }
+    
+    .doctors-header-new {
+        background: linear-gradient(135deg, #2d6a4f, #40916c) !important;
+        padding: 60px 0 !important;
+        color: white !important;
+        border-radius: 0 0 50px 50px !important;
+        margin-bottom: 30px !important;
+        text-align: center !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+        width: 100vw !important;
+        position: relative !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .search-section-insta {
+        max-width: 800px;
+        margin: -50px auto 20px auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        position: relative;
+        z-index: 10;
+    }
+    .doctor-card {
+        background: white; border-radius: 16px; padding: 16px; margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; align-items: center;
+        border: 1px solid #edf2f0; transition: 0.3s;
+    }
+    .doctor-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
+    .doctor-profile-img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #2d6a4f; margin-right: 16px; }
+    .doctor-name { font-weight: 700; font-size: 1.1rem; color: #1b4332; margin: 0; }
+    .btn-call-action { background-color: #1c9b62; color: white !important; border-radius: 10px; padding: 8px 18px; font-weight: 600; text-decoration: none; display: flex; flex-direction: column; align-items: center; transition: 0.3s; }
+</style>
+
+<div class="doctors-header-new">
+    <div class="container">
+        <h1 class="fw-bold">Find Your Doctor</h1>
+        <p class="opacity-75">ನಿಮ್ಮ ಸಮೀಪದ ಪಶುವೈದ್ಯರನ್ನು ಸುಲಭವಾಗಿ ಹುಡುಕಿ</p>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="search-section-insta p-3 border">
+        <form method="GET" action="{% url 'doctor_list' %}" id="searchForm" class="d-flex gap-2">
+            <div class="input-group">
+                <span class="input-group-text bg-transparent border-0"><i class="bi bi-search"></i></span>
+                <input type="text" name="search_text" class="form-control border-0 shadow-none" 
+                       value="{{ query|default:'' }}" placeholder="ವೈದ್ಯರ ಹೆಸರು ಅಥವಾ ಊರು ಹುಡುಕಿ...">
+            </div>
+            <button class="btn btn-success rounded-3 px-4" type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="max-width-container" style="max-width: 800px; margin: 0 auto;">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold m-0 text-dark"> ವೈದ್ಯರ ಪಟ್ಟಿ</h5>
+            <span class="text-muted small">ಜಿಲ್ಲೆ</span>
+        </div>
+
+        {% for doctor in doctors %}
+        <div class="doctor-card">
+            <a href="{% url 'doctor_detail' doctor.id %}">
+                {% if doctor.image %}
+                    <img src="{{ doctor.image.url }}" class="doctor-profile-img">
+                {% else %}
+                    <img src="https://via.placeholder.com/150" class="doctor-profile-img">
+                {% endif %}
+            </a>
+            <div class="doctor-info flex-grow-1">
+                <p class="doctor-name">Dr. {{ doctor.name }}</p>
+                <p class="doctor-subtext fw-bold" style="color: #52796f; font-size: 0.85rem;">{{ doctor.specialty|default:"General Veterinarian" }}</p>
+                <div class="location-text" style="font-size: 0.8rem; color: #6c757d;">
+                    <i class="bi bi-geo-alt-fill text-success"></i> {{ doctor.village }}, {{ doctor.taluk }},{{doctor.district}}
+                </div>
+            </div>
+            <a href="tel:{{ doctor.phone }}" class="btn-call-action">
+                <i class="bi bi-telephone-fill"></i>
+                <span style="font-size: 0.75rem;">Call</span>
+            </a>
+            <a href="{% url 'doctor_detail' doctor.id %}#rating-section" class="text-decoration-none">
+                <div class="rating-text" style="color: #ffb703; font-size: 0.9rem; font-weight: bold; cursor: pointer;">
+                    <i class="bi bi-star-fill"></i> {{ doctor.get_average_rating|stringformat:".1f" }}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

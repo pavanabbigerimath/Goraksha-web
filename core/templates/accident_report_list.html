@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-danger">Emergency Accident Reports</h3>
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-dark">Back to Dashboard</a>
+    </div>
+    <div class="table-responsive border rounded">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Reported At</th>
+                    <th>Photo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for acc in accidents %}
+                <tr>
+                    <td>{{ acc.id }}</td>
+                    <td>{{ acc.latitude }}</td>
+                    <td>{{ acc.longitude }}</td>
+                    <td>{{ acc.reported_at }}</td>
+                    <td>
+                        {% if acc.image %}
+                            <a href="{{ acc.image.url }}" target="_blank" class="btn btn-sm btn-info">View Photo</a>
+                        {% else %}
+                            <span class="text-muted">No Photo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for log in acc.alertlog_set.all %}
+                            <span class="badge bg-secondary">{{ log.doctor.name }}</span> 
+                            <small>({{ log.doctor.phone }})</small><br>
+                        {% empty %}
+                            <span class="text-muted">No alerts sent</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

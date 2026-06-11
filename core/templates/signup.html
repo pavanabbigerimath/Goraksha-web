@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0" style="border-radius: 20px;">
+                <div class="card-header bg-success text-white text-center p-4" style="border-radius: 20px 20px 0 0;">
+                    <h3 class="fw-bold m-0">Create New Account</h3>
+                    <p class="small m-0">Register as a new user</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label class="fw-bold text-dark mb-1">{{ field.label }}</label>
+                                <div class="input-group">
+                                    {{ field }}
+                                </div>
+                                {% if field.help_text %}
+                                    <small class="text-muted d-block mt-1" style="font-size: 0.75rem;">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <p class="text-danger small m-0">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-success w-100 fw-bold py-2 mt-3 shadow-sm" style="border-radius: 10px;">
+                            Sign Up
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer text-center bg-white border-0 pb-4">
+                    <p class="text-muted small">Account already exists?<a href="{% url 'login' %}" class="text-success fw-bold">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* ಇನ್‌ಪುಟ್ ಫೀಲ್ಡ್‌ಗಳನ್ನು ಸುಂದರಗೊಳಿಸಲು */
+    input {
+        display: block;
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        outline: none;
+    }
+    input:focus {
+        border-color: #2e7d32;
+        box-shadow: 0 0 5px rgba(46, 125, 50, 0.2);
+    }
+</style>
+{% endblock %}

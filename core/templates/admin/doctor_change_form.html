@@ -1,0 +1,30 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map { height: 400px; width: 100%; border: 2px solid #ccc; margin-bottom: 20px; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="map"></div>
+    
+    {{ block.super }} <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // ನೇರವಾಗಿ ಮ್ಯಾಪ್ ಇನಿಶಿಯಲೈಸ್ ಮಾಡಿ (DOMContentLoaded ತೆಗೆಯಿರಿ)
+        var map = L.map('map').setView([15.3647, 75.1240], 7);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        var marker = L.marker([15.3647, 75.1240], {draggable: true}).addTo(map);
+
+        marker.on('dragend', function (e) {
+            var pos = marker.getLatLng();
+            // ಅಡ್ಮಿನ್‌ನಲ್ಲಿರುವ ಇನ್ಪುಟ್ ಫೀಲ್ಡ್‌ಗೆ ಮೌಲ್ಯ ಅಪ್ಡೇಟ್ ಮಾಡಿ
+            document.getElementById('id_latitude').value = pos.lat;
+            document.getElementById('id_longitude').value = pos.lng;
+        });
+    </script>
+{% endblock %}
